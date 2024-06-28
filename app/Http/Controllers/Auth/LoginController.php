@@ -63,8 +63,6 @@ class LoginController extends Controller
                     }
                     elseif(Auth::attempt(['username'=>$email, 'password'=>$password], $request->remember))
                     {
-                        $result_username = User::where('username', $email)->first();
-                        Auth::login($result_username);
                         return redirect('/');
                     }
                     else
@@ -81,8 +79,6 @@ class LoginController extends Controller
                     }
                     elseif(Auth::attempt(['username'=>$email, 'password'=>$password]))
                     {
-                        $result_username = User::where('username', $email)->first();
-                        Auth::login($result_username);
                         return redirect('/');
                     }
                     else
