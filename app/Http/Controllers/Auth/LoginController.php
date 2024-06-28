@@ -54,34 +54,43 @@ class LoginController extends Controller
             $password = $request->password;
 
             if($email && $password){
-                //validate user in local db
-
-                $result_email = User::where('email', $email)->first();
-
-                if($result_email)
+                //if remember me checkbox is checked
+                if(isset($request->remember) && !empty(isset($request->remember)))
                 {
-                    $result_data = $result_email;
+                    if(Auth::attempt(['email'=>$email, 'password'=>$password], $request->remember))
+                    {
+                        return redirect('/');
+                    }
+                    elseif(Auth::attempt(['username'=>$email, 'password'=>$password], $request->remember))
+                    {
+                        $result_username = User::where('username', $email)->first();
+                        Auth::login($result_username);
+                        return redirect('/');
+                    }
+                    else
+                    {
+                        $errors = ['error'=>'Credentails not found. The email or password you entered is incorrect. Please try again.'];
+                        return redirect('/login')->withErrors($errors);
+                    }
                 }
                 else
                 {
-                    $result_username = User::where('username', $email)->first();
-                    
-                    $result_username ? $result_data = $result_username : $result_data = [];
+                    if(Auth::attempt(['email'=>$email, 'password'=>$password]))
+                    {
+                        return redirect('/');
+                    }
+                    elseif(Auth::attempt(['username'=>$email, 'password'=>$password]))
+                    {
+                        $result_username = User::where('username', $email)->first();
+                        Auth::login($result_username);
+                        return redirect('/');
+                    }
+                    else
+                    {
+                        $errors = ['error'=>'Credentails not found. The email or password you entered is incorrect. Please try again.'];
+                        return redirect('/login')->withErrors($errors);
+                    } 
                 }
-
-
-                if ($result_data && Hash::check($password, $result_data->password)) {
-                    //user is match
-                    Auth::login($result_data);
-                    return redirect('/');
-                }
-                else
-                {
-                    $errors = ['error'=>'Credentails not found. The email or password you entered is incorrect. Please try again.'];
-                    return redirect('/login')->withErrors($errors);
-                }
-
-                
             }
 
         } catch (RequestException $e) {
@@ -99,6 +108,7 @@ class LoginController extends Controller
 
     public function logout(Request $request){
         $request->session()->flush();
+        Auth::logout();
         return redirect('login');
     }
 }

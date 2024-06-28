@@ -57,7 +57,7 @@
                                                             <label for="exampleInputEmail1" class="fw-600">Username</label>
                                                             <input id="email" type="text" class="form-control" name="email" value="{{ old('email') }}" placeholder="Enter ursername or email address" required autofocus>
                                                         </div>
-                                                        <div class="form-group mb-4">
+                                                        <div class="form-group mb-2 mt-2">
                                                             <label for="exampleInputPassword1" class="fw-600">Password</label>
                                                             <div class="input-group mb-3">
                                                                 <input id="password" name="password" type="password" value="" class="input form-control" placeholder="Enter password" required/>
@@ -69,7 +69,18 @@
                                                                 </div>
                                                             </div> 
                                                         </div>
-                                                        <button type="submit" class="btn btn-primary">Login</button>
+                                                        <div class="mb-2">
+                                                            <div class="row">
+                                                                <div class="col-5">
+                                                                    <button type="submit" class="btn btn-primary">Login</button>
+                                                                </div>
+                                                                <div class="col-7" align="right">
+                                                                    <input id="remember" type="checkbox" name="remember">
+                                                                    <small style="margin-left: 5px;">Remember me</small>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                        </div>
                                                     </form>
                                                 </div>
                                                 <div class="card-footer text-center">
