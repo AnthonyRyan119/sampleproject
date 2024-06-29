@@ -18,9 +18,9 @@ class Product extends Migration
             $table->string('name');
             $table->string('category');
             $table->string('description');
-            $table->string('image')->nullable();
             $table->string('date');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

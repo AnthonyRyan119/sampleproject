@@ -59,11 +59,11 @@ class LoginController extends Controller
                 {
                     if(Auth::attempt(['email'=>$email, 'password'=>$password], $request->remember))
                     {
-                        return redirect('/');
+                        return redirect('/dashboard');
                     }
                     elseif(Auth::attempt(['username'=>$email, 'password'=>$password], $request->remember))
                     {
-                        return redirect('/');
+                        return redirect('/dashboard');
                     }
                     else
                     {
@@ -75,11 +75,11 @@ class LoginController extends Controller
                 {
                     if(Auth::attempt(['email'=>$email, 'password'=>$password]))
                     {
-                        return redirect('/');
+                        return redirect('/dashboard');
                     }
                     elseif(Auth::attempt(['username'=>$email, 'password'=>$password]))
                     {
-                        return redirect('/');
+                        return redirect('/dashboard');
                     }
                     else
                     {
