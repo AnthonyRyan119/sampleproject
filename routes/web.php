@@ -60,6 +60,9 @@ Route::group(['middleware'=> 'auth'], function(){
     # Delete product
     Route::post('/delete/product','ProductController@deleteProduct');
 
+    # Get product uploaded images
+    Route::post('/get/file/attachment','ProductController@viewFileAttachment');
+
 # Category Functions
     # Get all category
     Route::get('/get/category','CategoryController@getCategory');

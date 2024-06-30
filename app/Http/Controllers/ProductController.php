@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use DB;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class ProductController extends Controller
 {
@@ -38,12 +39,15 @@ class ProductController extends Controller
                             'description'=>$request->description,
                             'date'=>$request->date,
                         ]);
-
+            
+            $i = 0;
             if($file_attachments)
             {
                 foreach($file_attachments as $file)
                 {
-                    Storage::disk('public')->putFileAs('Upload_Images/'.$data, $file, $file->getClientOriginalName());
+                    $i++;
+                    $fileName = $data .'-'. $i . '.png';
+                    Storage::disk('public')->putFileAs('Upload_Images/'.$data, $file, $fileName);
                 }
             }
 
@@ -57,15 +61,40 @@ class ProductController extends Controller
 
     # Update Product
     public function updateProduct(Request $request){
+        $file_attachments = $request->file_attachments;
         $data = DB::table('product')
                     ->where('id',$request->id)
                     ->update([
                         'name'=>$request->name,
-                        'category'=>$request->email,
-                        'description'=>$request->username,
+                        'category'=>$request->category,
+                        'description'=>$request->description,
                         'date'=>$request->date,
                     ]);
+
+
+        //remove existing images
+        $folderToDelete = 'storage/Upload_Images/'.$request->id;
+
+        if (File::exists(public_path($folderToDelete))) 
+        {
+            File::deleteDirectory(public_path($folderToDelete));
+        }
+
+        //insert new images
+        $id = $request->id;
+        $i = 0;
+        if($file_attachments)
+        {
+            foreach($file_attachments as $file)
+            {
+                $i++;
+                $fileName = $data .'-'. $i . '.png';
+                Storage::disk('public')->putFileAs('Upload_Images/'.$id, $file, $file->getClientOriginalName());
+            }
+        }
         return $data;
+        
+        
     }
 
     # Delete Product
@@ -76,5 +105,16 @@ class ProductController extends Controller
                         'deleted_at'=>Carbon::now(),
                     ]);
         return $data;
+    }
+
+    # View File Attachment
+    public function viewFileAttachment(Request $request)
+    {
+        $id = $request->id;
+
+        $files = array();
+        $file_path = 'Upload_Images/'.$id;
+        $file = Storage::disk('public')->files($file_path);
+        return $file;
     }
 }

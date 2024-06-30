@@ -126,7 +126,7 @@
         
 
         <!-- Create Modal -->
-        <b-modal v-model="product.create_modal">
+        <b-modal v-model="product.create_modal" size="lg">
           <template #modal-header="{ close }">
             <h5>Add Product</h5>
           </template>
@@ -134,50 +134,67 @@
           <template #default="{ hide }">
             <div v-if="!product.form_loading">
                 <div class="row p-1">
-                    <div class="col-4">
-                        <small class="text-secondary"><b>Product Name</b></small>
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-4">
+                                <small class="text-secondary"><b>Product Name</b></small>
+                            </div>
+                            <div class="col-8">
+                                <b-form-input v-model="product.name" placeholder="Enter product name"></b-form-input>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-8">
-                        <b-form-input v-model="product.name" placeholder="Enter product name"></b-form-input>
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-4">
+                                <small class="text-secondary"><b>Category</b></small>
+                            </div>
+                            <div class="col-8">
+                                <v-select v-model="product.category" class="text-secondary" :options="category.options" placeholder="Select Category" :reduce="option => option.label"></v-select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="row p-1">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-4">
+                                <small class="text-secondary"><b>Date & Time</b></small>
+                            </div>
+                            <div class="col-8">
+                                <input type="datetime-local" class="h-100 w-100 form-control" v-model="product.date" style="font-size:14px;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-4">
+                                <small class="text-secondary"><b>Upload Image</b></small><small class="text-info ml-1"></small>
+                            </div>
+                            <div class="col-8">
+                                <b-form-group>
+                                    <template>
+                                        <b-form-file class="mt-1"
+                                         v-model="product.file_attachments" 
+                                         multiple
+                                         accept=".jpg, .png"
+                                        :file-name-formatter="formatNames"
+                                        ></b-form-file>
+                                    </template> 
+                                </b-form-group>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row p-1" style="margin-top: -20px">
+                    <div>
+                        <small class="text-secondary ml-1"><b>Description</b></small>
                     </div>
                 </div>
                 <div class="row p-1">
-                    <div class="col-4">
-                        <small class="text-secondary"><b>Category</b></small>
-                    </div>
-                    <div class="col-8">
-                        <v-select v-model="product.category" class="text-secondary" :options="category.options" placeholder="Select Category" :reduce="option => option.label"></v-select>
-                    </div>
-                </div>
-                <div class="row p-1">
-                    <div class="col-4">
-                        <small class="text-secondary"><b>Date & Time</b></small>
-                    </div>
-                    <div class="col-8">
-                        <input type="datetime-local" class="h-100 w-100 form-control" v-model="product.date" style="font-size:14px;">
-                    </div>
-                </div>
-                <div class="row p-1">
-                    <div class="col-4">
-                        <small class="text-secondary"><b>Description</b></small>
-                    </div>
-                    <div class="col-8">
-                        <b-form-input v-model="product.description" placeholder="Enter description"></b-form-input>
-                    </div>
-                </div>
-                <div class="row p-1">
-                    <div class="col-4">
-                        <small class="text-secondary"><b>Upload Image</b></small><small class="text-info ml-1"></small>
-                    </div>
-                    <div class="col-8">
-                        <b-form-group>
-                            <template>
-                                <b-form-file class="mt-1" v-model="product.file_attachments" 
-                                multiple 
-                                :file-name-formatter="formatNames"
-                                ></b-form-file>
-                            </template> 
-                        </b-form-group>
+                    <div>
+                        <vue-editor v-model="product.description" :editorToolbar="customToolbar"></vue-editor>
                     </div>
                 </div>
             </div>
@@ -193,7 +210,7 @@
           </template>
 
           <template #modal-footer="{ ok, cancel, hide }">
-            <b-button v-if="product.name" :disabled="(!product.category || !product.description) || product.form_loading" variant="success" size="sm" @click="createProduct()">
+            <b-button v-if="product.name" :disabled="(!product.category || !product.date || !product.description) || product.form_loading" variant="success" size="sm" @click="createProduct()">
               Create
             </b-button>
             <b-button variant="white" size="sm" @click="cancel()" :disabled="product.form_loading">
@@ -203,7 +220,7 @@
         </b-modal>
 
         <!-- Edit Modal -->
-        <b-modal v-model="product.edit_modal">
+        <b-modal v-model="product.edit_modal" size="lg">
           <template #modal-header="{ close }">
             <h5>Update Product</h5>
           </template>
@@ -211,27 +228,83 @@
           <template #default="{ hide }">
             <div v-if="!product.form_loading">
                 <div class="row p-1">
-                    <div class="col-4">
-                        <small class="text-secondary"><b>Product Name</b></small>
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-4">
+                                <small class="text-secondary"><b>Product Name</b></small>
+                            </div>
+                            <div class="col-8">
+                                <b-form-input v-model="product.name" placeholder="Enter product name"></b-form-input>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-8">
-                        <b-form-input v-model="product.name"></b-form-input>
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-4">
+                                <small class="text-secondary"><b>Category</b></small>
+                            </div>
+                            <div class="col-8">
+                                <v-select v-model="product.category" class="text-secondary" :options="category.options" placeholder="Select Category" :reduce="option => option.label"></v-select>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="row p-1">
-                    <div class="col-4">
-                        <small class="text-secondary"><b>Category</b></small>
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-4">
+                                <small class="text-secondary"><b>Date & Time</b></small>
+                            </div>
+                            <div class="col-8">
+                                <b-input-group v-if="show_default_date">
+                                    <template #append>
+                                    <b-button variant="outline-info" size="sm" @click="showDatePicker()"><i class="fa-solid fa-pen-to-square"></i></b-button>
+                                    </template>
+                                    <b-form-input v-model="product.date"></b-form-input>
+                                </b-input-group>
+                                <input type="datetime-local" v-if="show_datepicker" class="h-100 w-100 form-control" v-model="product.new_date" style="font-size:14px;">
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-8">
-                        <v-select v-model="product.category" :options="category.options" placeholder="Select Category" :reduce="option => option.label"></v-select>
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-4">
+                                <small class="text-secondary"><b>Upload Image</b></small>
+                            </div>
+                            <div class="col-8">
+                                <b-form-group>
+                                    <template>
+                                        <b-form-file class="mt-1" v-model="product.file_attachments" 
+                                        multiple 
+                                        :file-name-formatter="formatNames"
+                                        accept=".jpg, .png"
+                                        ></b-form-file>
+                                    </template> 
+                                </b-form-group>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row p-1" v-if="uploaded_img.length != 0">
+                    <div>
+                        <small class="text-secondary"><b>Uploaded Image(s)</b></small>
+                    </div>
+                </div>
+                <div class="row p-1" v-if="uploaded_img.length != 0">
+                    <div class="col-3" v-for="(img,index) in uploaded_img" :key="index">
+                        <b-card class="rounded shadow">
+                            <img :src="'/storage/'+img+'?timestamp='+timestamp" alt="" style="width: 100%;">
+                        </b-card>
                     </div>
                 </div>
                 <div class="row p-1">
-                    <div class="col-4">
-                        <small class="text-secondary"><b>Description</b></small>
+                    <div>
+                        <small class="text-secondary ml-1"><b>Description</b></small>
                     </div>
-                    <div class="col-8">
-                        <b-form-input v-model="product.description"></b-form-input>
+                </div>
+                <div class="row p-1">
+                    <div>
+                        <vue-editor v-model="product.description" :editorToolbar="customToolbar"></vue-editor>
                     </div>
                 </div>
             </div>
@@ -277,10 +350,14 @@
 <script>
 import Swal from 'sweetalert2';
 var moment = require('moment');
+import { VueEditor } from "vue2-editor";
 export default {
     mounted() {
         this.getProduct();
         this.getCategory();
+    },
+    components: {
+        VueEditor
     },
     data(){
         return{
@@ -289,7 +366,6 @@ export default {
                 fields: [
                     { key: 'name', label: 'Name', sortable: true, thStyle: { width: "23%" } },
                     { key: 'category', label: 'Category', sortable: true, 'class': 'user-col-hide', sortable: true, thStyle: { width: "25%" } },
-                    { key: 'description', label: 'Description', sortable: true, 'class': 'user-col-hide', thStyle: { width: "20%" } },
                     { key: 'action', label: 'Action', thStyle: { width: "15%" } },
                 ],
                 per_page: 5,
@@ -310,6 +386,7 @@ export default {
                 description: null,
                 image: null,
                 date: null,
+                new_date: null,
                 file_attachments:[],
 
                 api_data:[],
@@ -317,6 +394,16 @@ export default {
             category: {
                 options: [],
             },
+            customToolbar: [
+                ["bold", "italic", "underline"],
+                [{ list: "ordered" }, { list: "bullet" }],
+                ["code-block"]
+            ],
+            show_datepicker: false,
+            show_default_date: true,
+            timestamp: new Date().getTime(),
+            uploaded_img: [],
+
             Toast : Swal.mixin({
                 toast: true,
                 position: 'top-end',
@@ -341,39 +428,10 @@ export default {
         }
     },
     methods:{
-        formatNames(files) {
-            return files.length === 1 ? files[0].name : `${files.length} files selected`
-        },
-
-        toggleProductFunction(modal, data){
-            this.product.form_loading = false;
-            this.product.search = null;
-            this.product.search_loading = false;
-            this.product.status = null;
-            this.product.id = null;
-            this.product.name = null;
-            this.product.email = null;
-            this.product.role = null;
-            this.product.username = null;
-            this.product.password = null;
-            
-            if(modal){
-                this.product.create_modal = modal == 'create' ? true : false;
-                if(modal == 'edit'){
-                    this.product.id = data.id;
-                    this.product.name = data.name;
-                    this.product.email = data.email;
-                    this.product.username = data.username
-                    this.product.role = data.role;
-                    this.product.edit_modal = true;
-                }
-            }
-        },
-
+        
         getCategory(){
             axios.get('/get/category/option')
             .then((response) => {
-                console.log(response.data);
                 this.category.options = response.data;
             })
             .catch((error) => {
@@ -389,7 +447,6 @@ export default {
             this.products.items = [];
             axios.get('/get/product')
             .then((response) => {
-                console.log(response.data);
                 this.products.loading = false;
                 this.products.items = response.data;
             })
@@ -400,10 +457,63 @@ export default {
                 })
             })
         },
+
+        formatNames(files) {
+            return files.length === 1 ? files[0].name : `${files.length} files selected`
+        },
+
+        toggleProductFunction(modal, data){
+            this.product.form_loading = false;
+            this.product.search = null;
+            this.product.search_loading = false;
+            this.product.status = null;
+            this.product.id = null;
+            this.product.name = null;
+            this.product.category = null;
+            this.product.description = null;
+            this.product.date = null;
+            this.product.new_date = null;
+            this.product.file_attachments = null;
+            
+            if(modal){
+                this.product.create_modal = modal == 'create' ? true : false;
+                if(modal == 'edit'){
+                    this.product.id = data.id;
+                    this.getFileAttachment();
+                    this.product.name = data.name;
+                    this.product.category = data.category;
+                    this.product.description = data.description
+                    this.product.date = data.date;
+                    this.product.new_date = null;
+                    this.show_datepicker = false;
+                    this.show_default_date = true;
+                    this.product.edit_modal = true;
+                }
+            }
+        },
+
+        showDatePicker()
+        {
+            this.show_datepicker = true;
+            this.show_default_date = false;
+        },
+
+        getFileAttachment()
+        {
+            axios.post('/get/file/attachment',
+            {
+                id: this.product.id,
+            })
+            .then((response)=>
+            {
+                this.uploaded_img = response.data;
+                
+            })
+        },
         
         createProduct(){
             this.product.form_loading = true;
-            console.log(this.product.date);
+
             let formData = new FormData();
             formData.append('name',this.product.name);
             formData.append('category',this.product.category);
@@ -419,13 +529,14 @@ export default {
             }  
             axios.post('/insert/product',formData)
             .then((response) => {
-                console.log(response.data);
                 this.product.form_loading = false;
                 if(response.data.error){
+                    this.product.create_modal = false;
                     this.Toast.fire({
                         icon: 'warning',
                         title: response.data.error
                     })
+                    this.getProduct();
                 }else{
                     this.product.create_modal = false;
                     this.Toast.fire({
@@ -445,13 +556,36 @@ export default {
         }, 
 
         updateProduct(){
+            //validate if date is updated
+            var date = null;
+            if(this.show_datepicker == true)
+            {   
+                this.product.new_date ? date = this.product.new_date : date = this.product.date;
+            }
+            else
+            {
+                date = this.product.date;
+            }
+
             this.product.form_loading = true;
-            axios.post('/update/product',{
-                id : this.product.id,
-                role : this.product.role
-            })
+
+            let formData = new FormData();
+            formData.append('id',this.product.id);
+            formData.append('name',this.product.name);
+            formData.append('category',this.product.category);
+            formData.append('date',moment(date).format('YYYY-MM-DD hh:mm a'));
+            formData.append('description',this.product.description);
+
+            if(this.product.file_attachments)
+            {
+                for (var i = 0; i < this.product.file_attachments.length; i++) 
+                {
+                    formData.append('file_attachments[' + i + ']', this.product.file_attachments[i]);
+                }
+            }
+
+            axios.post('/update/product',formData)
             .then((response) => {
-                console.log(response.data);
                 this.product.form_loading = false;
                 this.product.edit_modal = false;
                 this.Toast.fire({
@@ -459,6 +593,7 @@ export default {
                     title: 'Product successfully updated'
                 })
                 this.getProduct();
+                
             })
             .catch((error) => {
                 this.product.form_loading = false;

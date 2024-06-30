@@ -12,6 +12,7 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 import vSelect from 'vue-select'
 import 'vue-select/dist/vue-select.css';
 import moment from 'moment';
+import { VueEditor } from "vue2-editor";
 
 require('./bootstrap');
 
