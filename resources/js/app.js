@@ -13,6 +13,7 @@ import vSelect from 'vue-select'
 import 'vue-select/dist/vue-select.css';
 import moment from 'moment';
 import { VueEditor } from "vue2-editor";
+import VueApexCharts from 'vue-apexcharts';
 
 require('./bootstrap');
 
@@ -21,6 +22,8 @@ window.Vue = require('vue');
 Vue.use(BootstrapVue);
 Vue.use(VueSweetalert2);
 Vue.component('v-select', vSelect);
+Vue.use(VueApexCharts);
+Vue.component('apexchart', VueApexCharts);
 
 Vue.prototype.$page_options = [
     { value: 'All', text: 'All' },

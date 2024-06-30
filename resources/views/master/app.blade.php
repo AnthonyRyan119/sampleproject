@@ -12,6 +12,9 @@
         <script data-search-pseudo-elements src="{{ asset('js/all.min.js') }}" crossorigin="anonymous"></script>
         <script src="{{ asset('js/feather.min.js') }}" crossorigin="anonymous"></script>
         <script src="{{ asset('js/app.js') }}" defer></script>
+        <!-- Odometer -->
+        <link href="{{ asset('../css/odometer.css') }}" rel="stylesheet">
+        <script src="{{ asset('../js/odometer.js') }}"></script>
     </head>
     <body class="nav-fixed">
         <div id="app">

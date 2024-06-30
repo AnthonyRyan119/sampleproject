@@ -4,14 +4,7 @@
         <button class="btn btn-icon btn-transparent-dark order-1 order-lg-0 me-2 ms-lg-2 me-lg-0" id="sidebarToggle"><i data-feather="menu"></i></button>
    
         <a class="navbar-brand pe-3 ps-4 ps-lg-2" style="color: #343a40;" href="/dashboard">{{app_name}}</a>
-        <!-- Navbar Search Input-- >
-        <-- * * Note: * * Visible only on and above the lg breakpoint-->
-        <!-- <form class="form-inline me-auto d-none d-lg-block me-3">
-            <div class="input-group input-group-joined input-group-solid">
-                <input class="form-control pe-0" type="search" placeholder="Search" v-model="$search_data" aria-label="Search" />
-                <div class="input-group-text"><i data-feather="search"></i></div>
-            </div>
-        </form> -->
+        
         <!-- Navbar Items-->
         <ul class="navbar-nav align-items-center ms-auto">
             <!-- Search in Mobile -->
@@ -26,6 +19,24 @@
                     </form>
                 </div>
             </li> -->
+            <div class="mr-2">
+                <form class="form-inline me-auto d-none d-lg-block me-3">
+                    <div class="input-group input-group-joined input-group-solid">
+                        <input class="form-control pe-0" type="search" placeholder="Search" aria-label="Search" />
+                        <div class="input-group-text"><i data-feather="search"></i></div>
+                    </div>
+                </form>
+            </div>
+            <div class="mr-2">
+                <a class="nav-link">
+                    <div><i class="fa-regular fa-comments fa-lg"></i></div>
+                </a>
+            </div>
+            <div>
+                <a class="nav-link">
+                    <div><i class="fa-regular fa-bell fa-lg"></i></div>
+                </a>
+            </div>
             <!-- User Dropdown-->
             <li class="nav-item dropdown no-caret dropdown-user me-3 me-lg-4">
                 <a class="btn btn-icon btn-transparent-dark dropdown-toggle" id="navbarDropdownUserImage" href="javascript:void(0);" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="img-fluid" src="/assets/img/illustrations/profiles/profile-1.png" /></a>
@@ -37,7 +48,7 @@
                             <div class="dropdown-user-details-email">{{ user.email }}</div>
                         </div>
                     </h6>
-                    <a class="dropdown-item" href="/user/account">
+                    <a class="dropdown-item">
                         <div class="dropdown-item-icon"><i data-feather="settings"></i></div>
                         Account
                     </a>

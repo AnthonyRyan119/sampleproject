@@ -12,11 +12,16 @@
                         <!-- User Role -->
                         <i class="text-gray-400"><b>{{user_role}}</b></i>
                         <br>
-                        <i class="text-gray-500 text-xs">June 05, 2020 05:05:05 am</i>
+                        <i id="myDiv" class="text-gray-500 text-xs"></i>
                     </div>
 
                     <hr class="text-gray-500">
-                    
+
+                    <div>
+                        <a class="nav-link" href="/dashboard">
+                            <div class="text-gray-400"><i class="fa-solid fa-chart-simple"></i> Dashboard</div>
+                        </a>
+                    </div>
                     <div v-if="user_role == 'Administrator'">
                         <!-- Sidenav Accordion (Dashboard)-->
                         <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseMaintenance" aria-expanded="false" aria-controls="collapseMaintenance">
@@ -55,10 +60,6 @@
             </div>
             <!-- Sidenav Footer-->
             <div class="sidenav-footer" v-if="user_data.name">
-                <!-- <div class="sidenav-footer-content">
-                    <div class="sidenav-footer-subtitle">Logged in as:</div>
-                    <div class="sidenav-footer-title">Valerie Luna</div>
-                </div> -->
             </div>
         </nav>
     </div>
@@ -70,6 +71,9 @@
     export default {
         props:['user_data'],
         mounted() {
+            window.setInterval(() => {
+                this.showDateTime()
+            }, 1000)
         },
         data(){
             return{
@@ -80,7 +84,36 @@
         computed:{
         },
         methods:{
+            showDateTime() {
+                var myDiv = document.getElementById("myDiv");
 
+                var date = new Date();
+                var dayList = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+                var monthNames = [
+                    "January",
+                    "February",
+                    "March",
+                    "April",
+                    "May",
+                    "June",
+                    "July",
+                    "August",
+                    "September",
+                    "October",
+                    "November",
+                    "December"
+                ];
+                var dayName = dayList[date.getDay()];
+                var monthName = monthNames[date.getMonth()];
+                var today = `${dayName}, ${monthName} ${date.getDate()}, ${date.getFullYear()}`;
+
+                var hour = date.getHours();
+                var min = date.getMinutes();
+                var sec = date.getSeconds();
+
+                var time = hour + ":" + min + ":" + sec;
+                myDiv.innerText = `${today}${time}`;
+            }
         }
     }
 </script>

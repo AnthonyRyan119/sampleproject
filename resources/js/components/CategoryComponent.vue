@@ -174,7 +174,7 @@
 </template>
 <style scoped>
 .page-header{
-    background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);
+    background-color: #44494f;
 }
 .page-item.active .page-link {  
     background-color: #00ac69 !important;  
