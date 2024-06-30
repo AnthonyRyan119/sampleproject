@@ -63,6 +63,9 @@ Route::group(['middleware'=> 'auth'], function(){
     # Get product uploaded images
     Route::post('/get/file/attachment','ProductController@viewFileAttachment');
 
+    # filter product by category
+    Route::post('/filter/category','ProductController@filterCategory');
+
 # Category Functions
     # Get all category
     Route::get('/get/category','CategoryController@getCategory');

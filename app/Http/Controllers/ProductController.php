@@ -117,4 +117,16 @@ class ProductController extends Controller
         $file = Storage::disk('public')->files($file_path);
         return $file;
     }
+
+    public function filterCategory(Request $request)
+    {
+        $data = DB::table('product')
+                    ->orderBy('id', 'DESC')
+                    ->whereNull('deleted_at')
+                    ->where('category',$request->category)
+                    ->get();
+
+        return $data;
+    }
+
 }

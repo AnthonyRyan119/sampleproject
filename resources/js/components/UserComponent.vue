@@ -67,7 +67,7 @@
                         <button data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit User" class="btn btn-sm btn-light text-primary" @click="toggleUserFunction('edit', row.item)"><i class="fa-solid fa-pen-to-square"></i></button>
                         <button data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete User" @click="deleteUser(row.item)" class="btn btn-sm btn-light text-danger"><i class="fa-solid fa-trash"></i></button>
                     </template>
-                    <template class="details-hide" #row-details="row">
+                    <!-- <template class="details-hide" #row-details="row">
                         <b-card class="animated--fade-in">
                             <b-row class="my-1">
                                 <b-col sm="3">
@@ -94,7 +94,7 @@
                                 </b-col>
                             </b-row>
                         </b-card>
-                    </template>
+                    </template> -->
                 </b-table>
                 <!-- Footer -->
                 <div class="row">

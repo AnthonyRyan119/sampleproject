@@ -20,15 +20,8 @@
             <div class="container p-4 rounded shadow bg-white">
                 <!-- Header -->
                 <div class="row">
-                    <div class="col-xl col-lg col-md col-sm-6 col-xs-6 mb-2">
-                        <b-form-select
-                            class="text-dark"
-                            style="max-width:80px;"
-                            v-model="products.per_page"
-                            :options="$page_options"
-                            required
-                        ></b-form-select>&nbsp;
-                        <label class="text-md"> entries per page</label>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6 mb-2">
+                        <v-select v-model="filter_category" @input="filterCategory()" class="text-secondary" style="width: 100%;" :options="category.options" placeholder="Filter By Category" :reduce="option => option.label"></v-select>
                     </div>
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-6 col-xs-6 mb-2">
                         <button class="btn btn-sm btn-light text-success w-100" @click="toggleProductFunction('create', null)"><i class="fa-solid fa-boxes-stacked"></i> Add Product</button>
@@ -67,34 +60,6 @@
                         <button data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit Product" class="btn btn-sm btn-light text-primary" @click="toggleProductFunction('edit', row.item)"><i class="fa-solid fa-pen-to-square"></i></button>
                         <button data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete Product" @click="deleteProduct(row.item)" class="btn btn-sm btn-light text-danger"><i class="fa-solid fa-trash"></i></button>
                     </template>
-                    <template class="details-hide" #row-details="row">
-                        <b-card class="animated--fade-in">
-                            <b-row class="my-1">
-                                <b-col sm="3">
-                                    <label>Name:</label>
-                                </b-col>
-                                <b-col sm="9">
-                                    <span>{{row.item.name}}</span>
-                                </b-col>
-                            </b-row>
-                            <b-row class="my-1">
-                                <b-col sm="3">
-                                    <label>Category:</label>
-                                </b-col>
-                                <b-col sm="9">
-                                    <span>{{row.item.category}}</span>
-                                </b-col>
-                            </b-row>
-                            <b-row class="my-1">
-                                <b-col sm="3">
-                                    <label>Description:</label>
-                                </b-col>
-                                <b-col sm="9">
-                                    <span>{{row.item.description}}</span>
-                                </b-col>
-                            </b-row>
-                        </b-card>
-                    </template>
                 </b-table>
                 <!-- Footer -->
                 <div class="row">
@@ -116,9 +81,19 @@
                                 <a class="text-success" v-else>{{ page }}</a>
                             </template>
                         </b-pagination>
+                        <label class="text-md mt-2"> {{ product_items.length }} item(s).</label>
                     </div>
                     <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12 mb-2 d-flex justify-content-end">
-                        <label class="text-md"> {{ product_items.length }} item(s).</label>
+                        <div>
+                            <label class="text-md" style="margin-top: 4px; margin-right: 5px;"> entries per page</label> 
+                        </div>
+                        <b-form-select
+                            class="text-dark"
+                            style="max-width:80px;"
+                            v-model="products.per_page"
+                            :options="$page_options"
+                            required
+                        ></b-form-select>&nbsp;
                     </div>
                 </div>
             </div>
@@ -403,6 +378,7 @@ export default {
             show_default_date: true,
             timestamp: new Date().getTime(),
             uploaded_img: [],
+            filter_category: null,
 
             Toast : Swal.mixin({
                 toast: true,
@@ -509,6 +485,41 @@ export default {
                 this.uploaded_img = response.data;
                 
             })
+        },
+
+        filterCategory()
+        {
+            if(this.filter_category)
+            {
+                this.product.form_loading = true;
+                axios.post('/filter/category',
+                {
+                    category: this.filter_category,
+                })
+                .then((response)=>
+                {
+                    this.product.form_loading = false;
+                    if(response.data)
+                    {
+                        this.products.items = [];
+                        this.products.items = response.data;
+                    }
+                    else
+                    {
+                        this.Toast.fire({
+                            icon: 'warning',
+                            title: 'No record found'
+                        })
+                        this.filter_category = null;
+                        this.getProduct();
+                    }
+                })
+            }
+            else
+            {
+                this.getProduct();
+            }
+            
         },
         
         createProduct(){
