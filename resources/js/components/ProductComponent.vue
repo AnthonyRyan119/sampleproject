@@ -56,7 +56,6 @@
                         <label v-else data-bs-toggle="tooltip" data-bs-placement="bottom" title="Inactive"><i class="fa-solid fa-circle text-secondary text-xs"></i></label>
                     </template>
                     <template #cell(action)="row">
-                        <button data-bs-toggle="tooltip" data-bs-placement="bottom" title="View Product" class="btn btn-sm btn-light text-info d-xl-none d-lg-none d-md-inline d-sm-inline" @click="row.toggleDetails"><i class="fa-solid fa-eye"></i></button>
                         <button data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit Product" class="btn btn-sm btn-light text-primary" @click="toggleProductFunction('edit', row.item)"><i class="fa-solid fa-pen-to-square"></i></button>
                         <button data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete Product" @click="deleteProduct(row.item)" class="btn btn-sm btn-light text-danger"><i class="fa-solid fa-trash"></i></button>
                     </template>
@@ -84,11 +83,11 @@
                         <label class="text-md mt-2"> {{ product_items.length }} item(s).</label>
                     </div>
                     <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12 mb-2 d-flex justify-content-end">
-                        <div>
+                        <div class="user-col-hide">
                             <label class="text-md" style="margin-top: 4px; margin-right: 5px;"> entries per page</label> 
                         </div>
                         <b-form-select
-                            class="text-dark"
+                            class="text-dark user-col-hide"
                             style="max-width:80px;"
                             v-model="products.per_page"
                             :options="$page_options"
@@ -313,6 +312,9 @@
     background-color: #00ac69 !important;  
     border-color: #ffffff !important;  
 }
+.hide{
+    display: none !important;
+}
 @media screen and (max-width: 900px) {
     .user-col-hide {
         display: none;
@@ -339,9 +341,9 @@ export default {
             products: {
                 items: [],
                 fields: [
-                    { key: 'name', label: 'Name', sortable: true, thStyle: { width: "23%" } },
-                    { key: 'category', label: 'Category', sortable: true, 'class': 'user-col-hide', sortable: true, thStyle: { width: "25%" } },
                     { key: 'action', label: 'Action', thStyle: { width: "15%" } },
+                    { key: 'name', label: 'Name', sortable: true, thStyle: { width: "23%" } },
+                    { key: 'category', label: 'Category', sortable: true, sortable: true, thStyle: { width: "25%" } },
                 ],
                 per_page: 5,
                 current_page: 1,
@@ -398,8 +400,8 @@ export default {
             return this.products.search
                 ? this.products.items.filter(item => 
                 item.name.toLowerCase().includes(this.products.search.toLowerCase()) ||
-                item.email.toLowerCase().includes(this.products.search.toLowerCase()) ||
-                item.role.toLowerCase().includes(this.products.search.toLowerCase()))
+                item.category.toLowerCase().includes(this.products.search.toLowerCase()) ||
+                item.description.toLowerCase().includes(this.products.search.toLowerCase()))
                 : this.products.items;
         }
     },

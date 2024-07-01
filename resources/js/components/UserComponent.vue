@@ -63,7 +63,6 @@
                         <label v-else data-bs-toggle="tooltip" data-bs-placement="bottom" title="Inactive"><i class="fa-solid fa-circle text-secondary text-xs"></i></label>
                     </template>
                     <template #cell(action)="row">
-                        <button data-bs-toggle="tooltip" data-bs-placement="bottom" title="View User" class="btn btn-sm btn-light text-info d-xl-none d-lg-none d-md-inline d-sm-inline" @click="row.toggleDetails"><i class="fa-solid fa-eye"></i></button>
                         <button data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit User" class="btn btn-sm btn-light text-primary" @click="toggleUserFunction('edit', row.item)"><i class="fa-solid fa-pen-to-square"></i></button>
                         <button data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete User" @click="deleteUser(row.item)" class="btn btn-sm btn-light text-danger"><i class="fa-solid fa-trash"></i></button>
                     </template>
@@ -286,10 +285,10 @@ export default {
             users: {
                 items: [],
                 fields: [
+                    { key: 'action', label: 'Action', thStyle: { width: "15%" } },
                     { key: 'name', label: 'Name', sortable: true, thStyle: { width: "23%" } },
                     { key: 'email', label: 'Email', sortable: true, 'class': 'user-col-hide', sortable: true, thStyle: { width: "25%" } },
                     { key: 'role', label: 'Role', sortable: true, 'class': 'user-col-hide', thStyle: { width: "20%" } },
-                    { key: 'action', label: 'Action', thStyle: { width: "15%" } },
                 ],
                 per_page: 5,
                 current_page: 1,

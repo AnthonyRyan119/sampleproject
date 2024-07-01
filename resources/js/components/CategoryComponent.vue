@@ -193,8 +193,8 @@ export default {
             category_tbl: {
                 items: [],
                 fields: [
-                    { key: 'name', label: 'Name', sortable: true, thStyle: { width: "23%" } },
                     { key: 'action', label: 'Action', thStyle: { width: "15%" } },
+                    { key: 'name', label: 'Name', sortable: true, thStyle: { width: "23%" } },
                 ],
                 per_page: 5,
                 current_page: 1,
