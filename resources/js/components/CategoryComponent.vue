@@ -105,7 +105,7 @@
             <div v-if="!category.form_loading">
                 <div class="row p-1">
                     <div class="col-4">
-                        <small class="text-secondary"><b>Category Name</b></small>
+                        <small class="text-secondary"><b>Name</b></small>
                     </div>
                     <div class="col-8">
                         <b-form-input v-model="category.name" placeholder="Enter category name"></b-form-input>
@@ -143,7 +143,7 @@
             <div v-if="!category.form_loading">
                 <div class="row p-1">
                     <div class="col-4">
-                        <small class="text-secondary"><b>Category Name</b></small>
+                        <small class="text-secondary"><b>Name</b></small>
                     </div>
                     <div class="col-8">
                         <b-form-input v-model="category.name"></b-form-input>
@@ -258,7 +258,6 @@ export default {
             this.category_tbl.items = [];
             axios.get('/get/category')
             .then((response) => {
-                console.log(response.data);
                 this.category_tbl.loading = false;
                 this.category_tbl.items = response.data;
             })
@@ -307,7 +306,6 @@ export default {
                 name : this.category.name
             })
             .then((response) => {
-                console.log(response.data);
                 this.category.form_loading = false;
                 this.category.edit_modal = false;
                 this.Toast.fire({

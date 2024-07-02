@@ -30,6 +30,9 @@ Route::group(['middleware'=> 'auth'], function(){
     # Product
     Route::get('/product','LandingPageController@ProductPage');
 
+    # Create Product
+    Route::get('/create/product','LandingPageController@CreateProductPage');
+
     # Category
     Route::get('/category','LandingPageController@CategoryPage');
 });

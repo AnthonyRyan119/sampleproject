@@ -63,6 +63,9 @@ Vue.component('User', require('./components/UserComponent.vue').default);
 // Product
 Vue.component('Product', require('./components/ProductComponent.vue').default);
 
+// Create Product
+Vue.component('create-product', require('./components/CreateProductComponent.vue').default);
+
 // Category
 Vue.component('Category', require('./components/CategoryComponent.vue').default);
 

@@ -24,7 +24,7 @@
                         <v-select v-model="filter_category" @input="filterCategory()" class="text-secondary" style="width: 100%;" :options="category.options" placeholder="Filter By Category" :reduce="option => option.label"></v-select>
                     </div>
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-6 col-xs-6 mb-2">
-                        <button class="btn btn-sm btn-light text-success w-100" @click="toggleProductFunction('create', null)"><i class="fa-solid fa-boxes-stacked"></i> Add Product</button>
+                        <button class="btn btn-sm btn-light text-success w-100" @click="toggleCreateProduct()"><i class="fa-solid fa-boxes-stacked"></i> Add Product</button>
                     </div>
                     <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12 mb-2 d-flex justify-content-end">
                         <form class="form-inline w-100">
@@ -108,51 +108,50 @@
           <template #default="{ hide }">
             <div v-if="!product.form_loading">
                 <div class="row p-1">
-                    <div class="col-6">
+                    <div class="col-lg-6 col-sm-12">
                         <div class="row">
-                            <div class="col-4">
+                            <div class="col-lg-4 col-sm-12">
                                 <small class="text-secondary"><b>Product Name</b></small>
                             </div>
-                            <div class="col-8">
+                            <div class="col-lg-8 col-sm-12">
                                 <b-form-input v-model="product.name" placeholder="Enter product name"></b-form-input>
                             </div>
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-lg-6 col-sm-12">
                         <div class="row">
-                            <div class="col-4">
+                            <div class="col-lg-3 col-sm-12">
                                 <small class="text-secondary"><b>Category</b></small>
                             </div>
-                            <div class="col-8">
+                            <div class="col-lg-9 col-sm-12">
                                 <v-select v-model="product.category" class="text-secondary" :options="category.options" placeholder="Select Category" :reduce="option => option.label"></v-select>
                             </div>
                         </div>
                     </div>
-                    
                 </div>
                 <div class="row p-1">
-                    <div class="col-6">
+                    <div class="col-lg-6 col-sm-12">
                         <div class="row">
-                            <div class="col-4">
+                            <div class="col-lg-4 col-sm-12">
                                 <small class="text-secondary"><b>Date & Time</b></small>
                             </div>
-                            <div class="col-8">
+                            <div class="col-lg-8 col-sm-12">
                                 <input type="datetime-local" class="h-100 w-100 form-control" v-model="product.date" style="font-size:14px;">
                             </div>
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-lg-6 col-sm-12">
                         <div class="row">
-                            <div class="col-4">
+                            <div class="col-lg-3 col-sm-12">
                                 <small class="text-secondary"><b>Upload Image</b></small><small class="text-info ml-1"></small>
                             </div>
-                            <div class="col-8">
+                            <div class="col-lg-9 col-sm-12">
                                 <b-form-group>
                                     <template>
                                         <b-form-file class="mt-1"
-                                         v-model="product.file_attachments" 
-                                         multiple
-                                         accept=".jpg, .png"
+                                        v-model="product.file_attachments" 
+                                        multiple
+                                        accept=".jpg, .png"
                                         :file-name-formatter="formatNames"
                                         ></b-form-file>
                                     </template> 
@@ -202,34 +201,34 @@
           <template #default="{ hide }">
             <div v-if="!product.form_loading">
                 <div class="row p-1">
-                    <div class="col-6">
+                    <div class="col-lg-6 col-sm-12">
                         <div class="row">
-                            <div class="col-4">
+                            <div class="col-lg-4 col-sm-12">
                                 <small class="text-secondary"><b>Product Name</b></small>
                             </div>
-                            <div class="col-8">
+                            <div class="col-lg-8 col-sm-12">
                                 <b-form-input v-model="product.name" placeholder="Enter product name"></b-form-input>
                             </div>
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-lg-6 col-sm-12">
                         <div class="row">
-                            <div class="col-4">
+                            <div class="col-lg-4 col-sm-12">
                                 <small class="text-secondary"><b>Category</b></small>
                             </div>
-                            <div class="col-8">
+                            <div class="col-lg-8 col-sm-12">
                                 <v-select v-model="product.category" class="text-secondary" :options="category.options" placeholder="Select Category" :reduce="option => option.label"></v-select>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row p-1">
-                    <div class="col-6">
+                    <div class="col-lg-6 col-sm-12">
                         <div class="row">
-                            <div class="col-4">
+                            <div class="col-lg-4 col-sm-12">
                                 <small class="text-secondary"><b>Date & Time</b></small>
                             </div>
-                            <div class="col-8">
+                            <div class="col-lg-8 col-sm-12">
                                 <b-input-group v-if="show_default_date">
                                     <template #append>
                                     <b-button variant="outline-info" size="sm" @click="showDatePicker()"><i class="fa-solid fa-pen-to-square"></i></b-button>
@@ -240,12 +239,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-lg-6 col-sm-12">
                         <div class="row">
-                            <div class="col-4">
+                            <div class="col-lg-4 col-sm-12">
                                 <small class="text-secondary"><b>Upload Image</b></small>
                             </div>
-                            <div class="col-8">
+                            <div class="col-lg-8 col-sm-12">
                                 <b-form-group>
                                     <template>
                                         <b-form-file class="mt-1" v-model="product.file_attachments" 
@@ -265,7 +264,7 @@
                     </div>
                 </div>
                 <div class="row p-1" v-if="uploaded_img.length != 0">
-                    <div class="col-3" v-for="(img,index) in uploaded_img" :key="index">
+                    <div class="col-lg-3 col-lg-4" v-for="(img,index) in uploaded_img" :key="index">
                         <b-card class="rounded shadow">
                             <img :src="'/storage/'+img+'?timestamp='+timestamp" alt="" style="width: 100%;">
                         </b-card>
@@ -470,6 +469,11 @@ export default {
             }
         },
 
+        toggleCreateProduct()
+        {
+            location.href = "/create/product";
+        },
+
         showDatePicker()
         {
             this.show_datepicker = true;
@@ -524,6 +528,7 @@ export default {
             
         },
         
+        //IF YOU WANT TO USE THE CREATE PRODUCT FUNCTION ON THIS PAGE
         createProduct(){
             this.product.form_loading = true;
 

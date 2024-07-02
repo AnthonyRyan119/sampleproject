@@ -45,10 +45,47 @@ class UserController extends Controller
 
     # Update User
     public function updateUser(Request $request){
-        $data = DB::table('users')
+        $check_user = DB::table('users')
+                            ->where('name',$request->name)
+                            ->orWhere('username', $request->username)
+                            ->first();
+        //check if user exist
+        if(!$check_user)
+        {
+            $data = DB::table('users')
                     ->where('id',$request->id)
-                    ->update(['role'=> $request->role]);
-        return $data;
+                    ->update([
+                        'name'=> $request->name,
+                        'email'=> $request->email,
+                        'username'=> $request->username,
+                        'role'=> $request->role
+                    ]);
+
+            return $data;
+        }
+        else if($check_user)
+        {
+            //check if match name or username is from the same user
+            if($check_user->id == $request->id)
+            {
+                $data = DB::table('users')
+                    ->where('id',$request->id)
+                    ->update([
+                        'name'=> $request->name,
+                        'email'=> $request->email,
+                        'username'=> $request->username,
+                        'role'=> $request->role
+                    ]);
+
+                return $data;
+            }
+            else
+            {
+                return ['error'=>'Inserted name or username is already taken.'];
+            }
+            
+        }
+        
     }
 
     # Delete User

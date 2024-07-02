@@ -207,7 +207,7 @@
                         <small class="text-secondary"><b>Full Name</b></small>
                     </div>
                     <div class="col-8">
-                        <b-form-input v-model="user.employee_name" disabled></b-form-input>
+                        <b-form-input v-model="user.employee_name"></b-form-input>
                     </div>
                 </div>
                 <div class="row p-1">
@@ -215,7 +215,7 @@
                         <small class="text-secondary"><b>Email</b></small>
                     </div>
                     <div class="col-8">
-                        <b-form-input v-model="user.email" disabled></b-form-input>
+                        <b-form-input v-model="user.email"></b-form-input>
                     </div>
                 </div>
                 <div class="row p-1">
@@ -223,7 +223,7 @@
                         <small class="text-secondary"><b>Username</b></small>
                     </div>
                     <div class="col-8">
-                        <b-form-input v-model="user.username" disabled></b-form-input>
+                        <b-form-input v-model="user.username"></b-form-input>
                     </div>
                 </div>
                 <div class="row p-1">
@@ -247,7 +247,7 @@
           </template>
 
           <template #modal-footer="{ ok, cancel, hide }">
-            <b-button v-if="user.employee_name" :disabled="(!user.role) || user.form_loading" variant="primary" size="sm" @click="updateUser()">
+            <b-button v-if="user.employee_name" :disabled="(!user.email || !user.username || !user.role) || user.form_loading" variant="primary" size="sm" @click="updateUser()">
               Update
             </b-button>
             <b-button variant="white" size="sm" @click="cancel()" :disabled="user.form_loading">
@@ -424,16 +424,25 @@ export default {
             this.user.form_loading = true;
             axios.post('/update/user',{
                 id : this.user.id,
+                name : this.user.employee_name,
+                email : this.user.email,
+                username : this.user.username,
                 role : this.user.role
             })
             .then((response) => {
-                console.log(response.data);
                 this.user.form_loading = false;
-                this.user.edit_modal = false;
-                this.Toast.fire({
+                if(response.data.error){
+                    this.Toast.fire({
+                        icon: 'warning',
+                        title: response.data.error
+                    })
+                }else{
+                    this.user.edit_modal = false;
+                    this.Toast.fire({
                     icon: 'success',
                     title: 'User successfully updated'
                 })
+                }
                 this.getUsers();
             })
             .catch((error) => {

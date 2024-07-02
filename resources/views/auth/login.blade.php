@@ -147,7 +147,7 @@
 <style>
     @media (min-width: 1500px){
         .container-login{
-            max-width: 1300px !important;
+            max-width: 1100px !important;
         }
     }
 

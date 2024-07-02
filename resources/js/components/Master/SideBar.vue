@@ -45,16 +45,31 @@
                                 <a class="text-gray-400 mb-2" href="/category">
                                     <i class="fa-solid fa-layer-group"></i> Category
                                 </a>
-                                <a class="text-gray-400" href="/product">
-                                    <i class="fa-solid fa-box"></i> Items
+                                <a class="text-gray-400 mb-2" href="/product">
+                                    <i class="fa-solid fa-list"></i> Product List
+                                </a>
+                                <a class="text-gray-400" href="/create/product">
+                                    <i class="fa-solid fa-box"></i> Create Product
                                 </a>
                             </nav>
                         </div>
                     </div>
+                    
                     <div v-if="user_role == 'Client'">
-                        <a class="nav-link" href="/product">
-                            <div class="text-gray-400"><i class="fa-solid fa-box"></i> Product</div>
+                        <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseProduct" aria-expanded="false" aria-controls="collapseMaintenance">
+                            <div class="text-gray-400"><i class="fa-solid fa-boxes-stacked"></i> Products</div>
+                            <div class="sidenav-collapse-arrow text-gray-400"><i class="fas fa-angle-down"></i></div>
                         </a>
+                        <div class="collapse" id="collapseProduct" data-bs-parent="#acordionProduct">
+                            <nav class="sidenav-menu-nested nav accordion" id="productSideNav">
+                                <a class="text-gray-400 mb-2" href="/product">
+                                    <i class="fa-solid fa-list"></i> Product List
+                                </a>
+                                <a class="text-gray-400" href="/create/product">
+                                    <i class="fa-solid fa-box"></i> Create Product
+                                </a>
+                            </nav>
+                        </div>
                     </div>
                 </div>
             </div>
