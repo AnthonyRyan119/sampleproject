@@ -75,15 +75,14 @@ php artisan storage:link
 php artisan serve
 ```
 
-### Current Admin Credentials
+### Default Admin Credentials
 
 - Run the seeder to create a default admin credentials
 ```
 php artisan db:seed --class=UserSeeder
 ```
 
-You may use these credentials to log into the website. you can change these credentials shortly on admin maintenance after logging in.
-You may also either use the admin email or username to log into the website.
+After running the seeder you may use these credentials to log into the website. You can change these credentials shortly on admin maintenance after logging in. You may also either use the admin email or username to log into the website.
 
 **Email** : Admin@gmail.com<br>
 **Username** : Admin<br>
@@ -104,4 +103,4 @@ php artisan db:seed --class=ProductSeeder
 
 ## License
 
-[MIT](LICENSE) © AnthonyRyan119
+© AnthonyRyan119
