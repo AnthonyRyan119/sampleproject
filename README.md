@@ -1,4 +1,3 @@
-<p align="center"><a target="_blank"><img src="<a href="https://www.freepik.com/free-vector/user-verification-unauthorized-access-prevention-private-account-authentication-cyber-security-people-entering-login-password-safety-measures_12146011.htm#fromView=search&page=1&position=0&uuid=32b76eef-5bce-44de-8dba-0a80f0213445">Image by vectorjuice on Freepik</a>" width="180"></a></p>
 
 <h1 align="center">Sample Laravel Project</h1>
 
@@ -22,15 +21,15 @@ The application is designed and tested to use conveniently without any issues.
 - Login
 - Dashboard
 - Manage user accounts
-    .Create user
-    .Update user
-    .Delete user
-    .View user
+- Create user
+- Update user
+- Delete user
+- View user
 - Manage product accounts
-    .Create product
-    .Update product
-    .Delete product
-    .View product
+- Create product
+- Update product
+- Delete product
+- View product
 - Upload product images
 - Responsive UI
 - Many more features....
